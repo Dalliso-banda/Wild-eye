@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "a web app for real time crime analysis",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "test": "npm start"
   },
@@ -17,7 +18,11 @@
   },
   "homepage": "https://github.com/Dalliso-banda/wild-eye#readme",
   "dependencies": {
+    "dotenv": "^16.5.0",
     "ejs": "^3.1.10",
-    "express": "^5.1.0"
+    "express": "^5.1.0",
+    "mysql": "^2.18.1",
+    "mysql2": "^3.14.1",
+    "socket.io": "^4.8.1"
   }
 }

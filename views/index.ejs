@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    
+    <script src="https://cdn.socket.io/4.0.1/socket.io.min.js"></script>
 
     <title>Dashboard</title>
     
@@ -20,16 +22,33 @@
  <navbar-component>
     
      </navbar-component>
-     <div id="map">
-         vgh
-         </div>
      
- 
+     <div id="map">
+         
+         </div>           
    
+      <div class='alerts-main'>
+          
+      <h2 id="areaStatus"> 
+          zone is not safe
+          </h2>
+          
+           <h3 id="areaStatus"> 
+          latest crimes 
+          </h3>
+        <ul id="crimes">
+       
+         
+        
+            </ul>  
+       </div>
 </body>
+<script src='../src/components/alerts.js' > </script>
 <script src="https://unpkg.com/leaflet/dist/leaflet.js" ></script>
 
 <script src='../src/components/navbar.js' > </script>
 
+
 <script src='../src/js/map.js' > </script>
+<script src='../src/js/sockets.js' > </script>
 </html>

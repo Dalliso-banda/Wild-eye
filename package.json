@@ -18,7 +18,7 @@
   },
   "homepage": "https://github.com/Dalliso-banda/wild-eye#readme",
   "dependencies": {
-    "dotenv": "^16.5.0",
+    "dotenv": "^16.6.1",
     "ejs": "^3.1.10",
     "express": "^5.1.0",
     "mysql": "^2.18.1",

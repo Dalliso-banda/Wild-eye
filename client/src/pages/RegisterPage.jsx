@@ -1,7 +1,8 @@
-import Layout from '../layouts/MobileLayout';
-import { Container, Form, Button, Row, Col } from 'react-bootstrap';
-import { useForm } from 'react-hook-form';
-import { Link } from 'react-router-dom';
+import Layout from "../layouts/MobileLayout";
+import { Container, Form, Button, Row, Col } from "react-bootstrap";
+import axios from "axios";
+import { useForm } from "react-hook-form";
+import { Link } from "react-router-dom";
 
 export default function SignUp() {
   const {
@@ -15,8 +16,16 @@ export default function SignUp() {
   const password = watch("password");
 
   const onSubmit = async (data) => {
-
-    console.log("Creating Account for:", data);
+    try {
+      const response = await axios.post("/api/user/register", data);
+      console.log("Registration successful:", response.data);
+      console.log("Creating Account for:", data);
+    } catch (error) {
+      console.error(
+        "Registration failed:",
+        error.response?.data || error.message,
+      );
+    }
     await new Promise((resolve) => setTimeout(resolve, 1500));
   };
 
@@ -28,10 +37,10 @@ export default function SignUp() {
           <p className="text-muted">Join Wild-Eye for real-time safety</p>
         </div>
 
-        <Form 
-          onSubmit={handleSubmit(onSubmit)} 
-          className="bg-white p-4 rounded-4 shadow-sm border mx-auto" 
-          style={{ maxWidth: '450px' }}
+        <Form
+          onSubmit={handleSubmit(onSubmit)}
+          className="bg-white p-4 rounded-4 shadow-sm border mx-auto"
+          style={{ maxWidth: "450px" }}
         >
           {/* Full Name */}
           <Form.Group className="mb-3">
@@ -53,12 +62,12 @@ export default function SignUp() {
             <Form.Control
               type="email"
               placeholder="name@example.com"
-              {...register("email", { 
+              {...register("email", {
                 required: "Email is required",
                 pattern: {
                   value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-                  message: "Invalid email address"
-                }
+                  message: "Invalid email address",
+                },
               })}
               isInvalid={!!errors.email}
             />
@@ -66,17 +75,17 @@ export default function SignUp() {
               {errors.email?.message}
             </Form.Control.Feedback>
           </Form.Group>
-                    <Form.Group className="mb-3">
+          <Form.Group className="mb-3">
             <Form.Label>Phone Number</Form.Label>
             <Form.Control
               type="number"
               placeholder="0976557875"
-              {...register("phone", { 
+              {...register("phone", {
                 required: "Phone number is required",
                 pattern: {
                   value: /^09\d{8}$/,
-                  message: "Invalid phone number format"
-                }
+                  message: "Invalid phone number format",
+                },
               })}
               isInvalid={!!errors.phone}
             />
@@ -90,9 +99,12 @@ export default function SignUp() {
             <Form.Control
               type="password"
               placeholder="Minimum 8 characters"
-              {...register("password", { 
+              {...register("password", {
                 required: "Password is required",
-                minLength: { value: 8, message: "Must be at least 8 characters" }
+                minLength: {
+                  value: 8,
+                  message: "Must be at least 8 characters",
+                },
               })}
               isInvalid={!!errors.password}
             />
@@ -107,9 +119,10 @@ export default function SignUp() {
             <Form.Control
               type="password"
               placeholder="Re-enter password"
-              {...register("confirmPassword", { 
+              {...register("confirmPassword", {
                 required: "Please confirm your password",
-                validate: (value) => value === password || "Passwords do not match"
+                validate: (value) =>
+                  value === password || "Passwords do not match",
               })}
               isInvalid={!!errors.confirmPassword}
             />
@@ -118,18 +131,20 @@ export default function SignUp() {
             </Form.Control.Feedback>
           </Form.Group>
 
-          <Button 
-            variant="warning" 
-            type="submit" 
+          <Button
+            variant="warning"
+            type="submit"
             className="w-100 py-2 mb-3 rounded-pill"
             disabled={isSubmitting}
           >
-            {isSubmitting ? 'Setting up account...' : 'Sign Up'}
+            {isSubmitting ? "Setting up account..." : "Sign Up"}
           </Button>
 
           <div className="text-center mt-3">
             <span className="text-muted small">Already have an account? </span>
-            <Link to="/login" className="small text-decoration-none fw-bold">Log In</Link>
+            <Link to="/login" className="small text-decoration-none fw-bold">
+              Log In
+            </Link>
           </div>
         </Form>
       </Container>

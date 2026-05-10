@@ -1,5 +1,6 @@
 import Layout from '../layouts/MobileLayout';
 import { Container, Form, Button } from 'react-bootstrap';
+import axios from 'axios';
 import { useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
 
@@ -11,8 +12,15 @@ export default function Login() {
   } = useForm();
 
   const onSubmit = async (data) => {
-    // This is where you'd call your Next.js/Node.js API
-    console.log("Logging in...", data);
+    try {
+      const response = await axios.post('/api/user/login', data);
+      console.log('Login successful:', response.data);
+
+    } catch (error) {
+      console.error('Login failed:', error.response?.data || error.message);
+     
+    }
+         
     await new Promise((resolve) => setTimeout(resolve, 1000));
   };
 

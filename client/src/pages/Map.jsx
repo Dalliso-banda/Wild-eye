@@ -8,7 +8,7 @@ export default function MapPage() {
   const [isLoading, setIsLoading] = useState(true);
   const [permissionError, setPermissionError] = useState(false);
 
-  // Manual trigger for mobile browsers that block auto-start
+
   const requestLocation = () => {
     setPermissionError(false);
     setIsLoading(true);
@@ -62,7 +62,7 @@ export default function MapPage() {
           </div>
         ) : (
           <>
-            <MapBox long={coords.long} lat={coords.lat} />
+            <MapBox long={coords.long} lat={coords.lat} nearby={[{ long:29, lat: coords.lat,phone:97655 },{ long:28, lat: coords.lat,phone:97655 }]} />
             
             {/* Show this if the precise location is blocked or failing */}
             {permissionError && (

@@ -4,10 +4,10 @@ import 'maplibre-gl/dist/maplibre-gl.css';
 
 const STADIA_API_KEY = import.meta.env.VITE_STADIA_API_KEY;
 
-console.log("Using Stadia API Key:", STADIA_API_KEY ? "Yes" : "No");
 
-export default function MapBox({ long, lat }) {
 
+export default function MapBox({ long, lat ,nearby}) {
+console.log(nearby)
   const [viewState, setViewState] = useState({
     longitude: long,
     latitude: lat,
@@ -39,6 +39,41 @@ export default function MapBox({ long, lat }) {
             borderRadius: '50%', boxShadow: '0 0 15px #007bff'
           }} />
         </Marker>
+        
+     {nearby.map((point, index) => (
+  <Marker key={index} longitude={point.long} latitude={point.lat} anchor="center">
+    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+      
+      {/* The Clickable Phone Button */}
+      <a 
+        href={`tel:${point.phone}`} 
+        style={{
+          backgroundColor: 'white',
+          padding: '4px 10px',
+          borderRadius: '20px',
+          fontSize: '12px',
+          fontWeight: 'bold',
+          color: '#28a745',
+          textDecoration: 'none',
+          boxShadow: '0 2px 6px rgba(0,0,0,0.15)',
+          marginBottom: '5px', // Space between button and dot
+          whiteSpace: 'nowrap'
+        }}
+      >
+        📞 {point.phone}
+      </a>
+
+      {/* Your original green dot */}
+      <div style={{
+        width: '15px', height: '15px', 
+        backgroundColor: '#28a745', border: '2px solid white',
+        borderRadius: '50%', boxShadow: '0 0 10px #28a745'
+      }} />
+
+    </div>
+  </Marker>
+))}
+       
       </Map>
       
       <div style={{ position: 'absolute', top: 10, width: '100%', textAlign: 'center', pointerEvents: 'none' }}>

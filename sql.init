@@ -1,0 +1,15 @@
+-- 1. Create the user
+CREATE USER wild_eye_admin WITH PASSWORD 'your_secure_password';
+
+-- 2. Create the database
+CREATE DATABASE wild;
+
+-- 3. Grant connection and general privileges
+GRANT ALL PRIVILEGES ON DATABASE wild TO wild_eye_admin;
+
+-- 4. Connect to the new database to grant schema-level permissions
+-- (Note: If using Docker /docker-entrypoint-initdb.d/, this usually runs as a single session. 
+-- For complex setups, you might need to connect to the DB and grant schema permissions separately.)
+\c wild
+
+GRANT ALL ON SCHEMA public TO wild_eye_admin;

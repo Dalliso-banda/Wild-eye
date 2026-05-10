@@ -18,11 +18,16 @@
   },
   "homepage": "https://github.com/Dalliso-banda/wild-eye#readme",
   "dependencies": {
+    "bcrypt": "^6.0.0",
     "dotenv": "^16.6.1",
     "ejs": "^3.1.10",
     "express": "^5.1.0",
+    "joi": "^18.2.1",
+    "jsonwebtoken": "^9.0.3",
+    "knex": "^3.2.10",
     "mysql": "^2.18.1",
     "mysql2": "^3.14.1",
+    "pg": "^8.20.0",
     "socket.io": "^4.8.1"
   }
 }

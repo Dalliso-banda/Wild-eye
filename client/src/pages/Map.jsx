@@ -2,13 +2,16 @@ import React, { useState, useEffect } from 'react';
 import Layout from '../layouts/MobileLayout';
 import MapBox from '../components/MapBox';
 import { Spinner, Button } from 'react-bootstrap';
+import { useLocationSync } from '../hooks/useLocationSync';
+import { socket } from "../socket.js"; // Import the instance
 
 export default function MapPage() {
-  const [coords, setCoords] = useState({ long: 28.3, lat: -15.4 }); // Default fallback
+    const users = useLocationSync(socket); // This will give you the array of nearby users from the backend
+  const [coords, setCoords] = useState({ long: 28.3, lat: -15.4 });
   const [isLoading, setIsLoading] = useState(true);
   const [permissionError, setPermissionError] = useState(false);
 
-
+    console.log(users,'from mapps ')
   const requestLocation = () => {
     setPermissionError(false);
     setIsLoading(true);
@@ -62,7 +65,7 @@ export default function MapPage() {
           </div>
         ) : (
           <>
-            <MapBox long={coords.long} lat={coords.lat} nearby={[{ long:29, lat: coords.lat,phone:97655 },{ long:28, lat: coords.lat,phone:97655 }]} />
+            <MapBox long={coords.long} lat={coords.lat} nearby={users} />
             
             {/* Show this if the precise location is blocked or failing */}
             {permissionError && (

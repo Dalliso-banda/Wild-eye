@@ -3,8 +3,14 @@ import { Container, Form, Button } from 'react-bootstrap';
 import axios from 'axios';
 import { useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
-
+import { useAuth } from '../context/UserAuth';
+import { useNavigate } from 'react-router-dom';
 export default function Login() {
+  const navigate = useNavigate();
+  const {login,user}= useAuth();
+  if(user){
+    navigate('/')
+  }
   const {
     register,
     handleSubmit,
@@ -15,7 +21,9 @@ export default function Login() {
     try {
       const response = await axios.post('/api/user/login', data);
       console.log('Login successful:', response.data);
+     await     login({name:response.data.name,id:response.data.id})
 
+     navigate('/')
     } catch (error) {
       console.error('Login failed:', error.response?.data || error.message);
      

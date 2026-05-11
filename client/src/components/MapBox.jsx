@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Map, { Marker } from 'react-map-gl/maplibre';
+import axios from 'axios';
 import 'maplibre-gl/dist/maplibre-gl.css';
 
 const STADIA_API_KEY = import.meta.env.VITE_STADIA_API_KEY;
@@ -41,7 +42,7 @@ console.log(nearby)
         </Marker>
         
      {nearby.map((point, index) => (
-  <Marker key={index} longitude={point.long} latitude={point.lat} anchor="center">
+  <Marker key={index} longitude={point.lng.toFixed(5)} latitude={point.lat.toFixed(4)} anchor="center">
     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
       
       {/* The Clickable Phone Button */}
@@ -56,7 +57,7 @@ console.log(nearby)
           color: '#28a745',
           textDecoration: 'none',
           boxShadow: '0 2px 6px rgba(0,0,0,0.15)',
-          marginBottom: '5px', // Space between button and dot
+          marginBottom: '5px',
           whiteSpace: 'nowrap'
         }}
       >
